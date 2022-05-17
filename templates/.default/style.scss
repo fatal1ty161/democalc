@@ -1,0 +1,519 @@
+@font-face {
+    font-family: "Rouble";
+    src: url('fonts/rouble-webfont.eot');
+    src: url('fonts/rouble-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/rouble-webfont.woff2') format('woff2'),
+    url('fonts/rouble-webfont.woff') format('woff'),
+    url("fonts/rouble-webfont.ttf") format('truetype'),
+    url('fonts/rouble-webfont.svg#rouble-webfont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@mixin text($font_size, $font_family, $color_) {
+    color: $color_;
+    font-size: $font_size;
+    font-family: $font_family;
+}
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+        -webkit-box-shadow: inset $top $left $blur $color;
+        -moz-box-shadow: inset $top $left $blur $color;
+        box-shadow: inset $top $left $blur $color;
+    } @else {
+        -webkit-box-shadow: $top $left $blur $color;
+        -moz-box-shadow: $top $left $blur $color;
+        box-shadow: $top $left $blur $color;
+    }
+}
+@mixin transitionAnim($time) {
+    transition: all $time ease-in-out;
+    -o-transition: all $time ease-in-out;
+    -moz-transition: all $time ease-in-out;
+    -webkit-transition: all $time ease-in-out;
+}
+@mixin centerAbsolute() {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+@mixin inlineBlock($align) {
+    display: inline-block;
+    vertical-align: $align;
+    white-space: normal;
+}
+@mixin rotate($number) {
+    -webkit-transform: rotate($number); /* Chrome y Safari */
+    -moz-transform: rotate($number); /* Firefox */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); /* Internet Explorer */
+    -o-transform: rotate($number); /* Opera */
+}
+
+input.error::-webkit-input-placeholder {
+    color: #e21e3b !important;
+}
+input.error::-moz-placeholder {
+    color: #e21e3b !important;
+}
+input.error:-moz-placeholder {
+    color: #e21e3b !important;
+}
+input.error:-ms-input-placeholder {
+    color: #e21e3b !important;
+}
+input, textarea, .input-block {
+    outline: none;
+    &.error {
+        border: 1px solid #e21e3b !important;
+        color: #e21e3b !important;
+    }
+}
+pre {
+    font-size: 12px;
+    font-family: Arial;
+}
+
+.calculator-wrap{
+    white-space: nowrap;
+    font-size: 0;
+    margin-bottom: -16px;
+    margin-top:-33px;
+    overflow: hidden;
+    .loader-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        display: none;
+        z-index: 931;
+        .text {
+            @include text(16px, "Roboto Condensed", #5f5c5c);
+            margin-top: -75px;
+        }
+        .loader {
+            position: relative;
+            display: none;
+            margin: 240px 12.5% 100px;
+            width: 80px;
+            height: 80px;
+            border: 5px solid #0091ea;
+            border-radius: 100%;
+            animation: spin 0.75s infinite linear;
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+        }
+        .loader::before,
+        .loader::after {
+            left: -5px;
+            top: -5px;
+            display: none;
+            position: absolute;
+            content: '';
+            width: inherit;
+            height: inherit;
+            border: inherit;
+            border-radius: inherit;
+        }
+        .loader-5,
+        .loader-5::before {
+            display: inline-block;
+            border-color: transparent;
+            border-top-color: #0091ea;
+        }
+        .loader-5::before {
+            animation: spin 1.7s infinite ease;
+        }
+        @keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    }
+    .info, #calculator,
+    .products-wrap{
+        @include inlineBlock(top);
+        width:590px;
+        height:595px;
+    }
+    .info{
+        text-align: center;
+        .icon{
+            background: url("images/calculate-icon.png") center no-repeat;
+            width:44px;
+            height:44px;
+            margin:145px auto 33px auto;
+        }
+        .title{
+            @include text(25px, "Roboto Condensed", #555555);
+            text-transform: uppercase;
+            line-height: 30px;
+            margin: 0 auto;
+            width:350px;
+        }
+        .text{
+            @include text(17px, "Roboto Condensed", #555555);
+            width:478px;
+            margin: 20px auto 0 auto;
+        }
+        .arrow{
+            background: url("images/calculate-arrow.png") center no-repeat;
+            width:35px;
+            height:20px;
+            margin:25px auto 0 auto;
+        }
+        &.WITH{
+            background: url("images/calculator-info-BG-min.png") center no-repeat;
+            width: 603px;
+            margin-right:-11px;
+            .icon{
+                background: url("images/calculate-icon-white.png") center no-repeat;
+            }
+            .title, .text{
+                color:white;
+            }
+            .arrow{
+                background: url("images/calculate-arrow-white.png") center no-repeat;
+            }
+        }
+    }
+    #calculator{
+        background: url("images/Rectangle.png") center no-repeat;
+        background-size: 100% 100% !important;
+        padding:110px 96px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+        margin-left: -2px;
+        .title{
+            @include text(16px, "Roboto Condensed", white);
+            font-weight: bold;
+            line-height: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.1px;
+            margin-bottom:10px;
+        }
+        .props-wrap{
+            white-space: nowrap;
+            margin-bottom:23px;
+            input::-webkit-input-placeholder {
+                color: #b5b5b5;
+            }
+            input::-moz-placeholder {
+                color: #b5b5b5;
+            }
+            input:-moz-placeholder {
+                color: #b5b5b5;
+            }
+            input:-ms-input-placeholder {
+                color: #b5b5b5;
+            }
+            input{
+                width:128px;
+                height:30px;
+                line-height: 31px;
+                border: 1px solid #0091ea;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-border-radius:3px;
+                -moz-border-radius:3px;
+                border-radius:3px;
+                padding-left:10px;
+                @include text(14px, "Roboto Condensed", #555555);
+                @include inlineBlock(top);
+                margin-right:8px;
+                &:last-child{
+                    margin-right:0;
+                }
+            }
+        }
+        .select-wrap{
+            margin-bottom:23px;
+            position: relative;
+            .input-block{
+                width:100%;
+                height:30px;
+                line-height: 31px;
+                @include text(14px, "Roboto Condensed", #b5b5b5);
+                position: relative;
+                cursor: pointer;
+                background: url("images/select-arrow.png") 98% 56% no-repeat white;
+                -webkit-border-radius:3px;
+                -moz-border-radius:3px;
+                border-radius:3px;
+                padding-left:10px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border: 1px solid #0091ea;
+                &.active{
+                    color:#555555;
+                }
+                .icon{
+                    background: url("images/input-active-icon.png") center no-repeat white;
+                    width:16px;
+                    height:16px;
+                    display: none;
+                    right: 5px;
+                    top: 7px;
+                    position: absolute;
+                }
+            }
+            .enums {
+                display: none;
+                width: 396px;
+                position: absolute;
+                z-index: 10;
+                border: 1px solid #dfdfdf;
+                max-height: 185px;
+                -webkit-border-radius:0 0 3px 3px;
+                -moz-border-radius:0 0 3px 3px;
+                border-radius:0 0 3px 3px;
+                margin: -1px 0 0 1px;
+                box-sizing: border-box;
+                &.scroll{
+                    overflow-y: scroll;
+                }
+                &.noActive{
+                    display: none;
+                }
+                .enum {
+                    background-color: white;
+                    height: 30px;
+                    line-height: 31px;
+                    cursor: pointer;
+                    text-align: left;
+                    padding-left: 10px;
+                    @include text(14px, "Roboto Condensed", #555555);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    &:hover, &.active {
+                        background-color: #0091ea;
+                        color: white;
+                    }
+                }
+            }
+        }
+        .buttons-wrap{
+            margin-top:40px;
+            white-space: nowrap;
+            .clear, .calculate{
+                @include inlineBlock(top);
+                width:190px;
+                height:45px;
+                line-height: 47px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                cursor: pointer;
+                font-weight: bold;
+                text-transform: uppercase;
+                text-align: center;
+                -webkit-border-radius:3px;
+                -moz-border-radius:3px;
+                border-radius:3px;
+                letter-spacing: 0.1px;
+            }
+            .clear{
+                margin-right:20px;
+                @include text(16px, "Roboto Condensed", white);
+                background-color: #0091ea;
+                border: 1px solid white;
+            }
+            .calculate{
+                @include text(16px, "Roboto Condensed", #0091ea);
+                background-color: white;
+            }
+        }
+        .loadImages{
+            display: none;
+            background:url("images/Rectangle-1.png");
+        }
+    }
+    .products-wrap{
+        white-space: nowrap;
+        padding:40px 64px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+        .film, .armor, .decode{
+            @include inlineBlock(top);
+            width:100px;
+            margin-right:82px;
+            .title-wrap{
+                text-align: center;
+                margin-bottom:10px;
+                height:30px;
+                overflow: hidden;
+                .title{
+                    display: table;
+                    width:100%;
+                    height:100%;
+                    .table-cell{
+                        display: table-cell;
+                        vertical-align: middle;
+                        @include text(14px, "Roboto Condensed", #555555);
+                        text-transform: uppercase;
+                        line-height:16px;
+                    }
+                }
+            }
+            .image{
+                width:100px;
+                height:100px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border: 1px solid #e4e4e4;
+                margin-bottom:15px;
+                display: none;
+            }
+            .name{
+                @include text(16px, "Roboto Condensed", #555555);
+                font-weight: bold;
+                max-height: 72px;
+                min-height:72px;
+                overflow: hidden;
+                margin-bottom:20px;
+            }
+            .price-block-wrap{
+                width:100px;
+                height:100px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border: 1px solid #0091ea;
+                margin-bottom:12px;
+                .table-block{
+                    display: table;
+                    width:100%;
+                    height:100%;
+                    .table-cell {
+                        display: table-cell;
+                        vertical-align: middle;
+                        text-align: center;
+                        .square{
+                            @include text(18px, "Roboto Condensed", #0091ea);
+                            font-weight: bold;
+                        }
+                        .price-block{
+                            white-space: nowrap;
+                            .price, .rub{
+                                @include inlineBlock(middle);
+                            }
+                            .price{
+                                @include text(24px, "Roboto Condensed", #88c039);
+                                font-weight: bold;
+                            }
+                            .rub{
+                                @include text(16px, "Rouble", #88c039);
+                            }
+                        }
+                    }
+                }
+            }
+            .toBasket{
+                width:100px;
+                height:30px;
+                text-align: center;
+                line-height:30px;
+                @include text(13px, "Roboto Condensed", white);
+                text-transform: uppercase;
+                cursor: pointer;
+                -webkit-border-radius:3px;
+                -moz-border-radius:3px;
+                border-radius:3px;
+                background-color: #0091ea;
+            }
+        }
+        .decode{
+            margin-right:0;
+        }
+        .price-wrap{
+            white-space:nowrap;
+            @include text(16px, "Roboto Condensed", #555555);
+            font-weight: bold;
+            margin-top:22px;
+            text-transform: uppercase;
+            .sumPrice, .rub{
+                @include inlineBlock(bottom);
+            }
+            .sumPrice{
+                @include text(30px, "Roboto Condensed", #f17e2b);
+                line-height: 27px;
+                margin-left:10px;
+            }
+            .rub{
+                @include text(16px, "Rouble", #555555);
+                text-transform: none;
+            }
+        }
+        .buy-all{
+            display: block;
+            width: 100%;
+            position: static;
+            text-align: center;
+            border: 1px solid #0091ea;
+            padding: 13px;
+            border-radius: 4px;
+            letter-spacing: 0.01pt;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-top: 25px;
+            color: #0091ea;
+            font-weight: 700!important;
+            cursor: pointer;
+            &:hover{
+                border-color: #0091ea;
+                background-color: #0091ea;
+                -moz-transition: all linear 0.2s;
+                transition: all linear 0.2s;
+                color: #ffffff;
+            }
+        }
+    }
+}
+.add_item_frame.popup.all{
+    width: 350px;
+    margin-left: -175px !important;
+    top: 45% !important;
+    z-index: 10000 !important;
+}
+.jqmOverlay.all{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 2999;
+    opacity: 0.5;
+    display: none;
+}
